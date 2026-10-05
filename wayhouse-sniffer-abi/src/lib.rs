@@ -1,7 +1,7 @@
-//! Guest-side ABI helper for gsp sniffer plugins (phase 9 slice 5).
+//! Guest-side ABI helper for wayhouse sniffer plugins (phase 9 slice 5).
 //!
 //! Implements the *write* side of the ABI the host loader documents
-//! (`crates/gsp/src/sniffer_loader.rs`, module doc): a bump-free allocator —
+//! (`crates/wayhouse/src/sniffer_loader.rs`, module doc): a bump-free allocator —
 //! it just delegates to the module's own global allocator — behind
 //! `alloc(len) -> ptr`, and an encoder for the compact `RouteHint` result
 //! format the host reads back:
@@ -77,8 +77,8 @@ pub unsafe fn config<'a>(ptr: u32, len: u32) -> &'a [u8] {
     input(ptr, len)
 }
 
-/// A recognised result, mirroring `gsp_config::RouteHint`'s three fields.
-/// Deliberately does not depend on `gsp-config` — a plugin is a tiny,
+/// A recognised result, mirroring `wayhouse_config::RouteHint`'s three fields.
+/// Deliberately does not depend on `wayhouse-config` — a plugin is a tiny,
 /// dependency-free wasm module, not a consumer of the proxy's own crates.
 #[derive(Default)]
 pub struct Hint<'a> {
@@ -126,7 +126,7 @@ pub fn encode(hint: &Hint) -> Vec<u8> {
 /// Note for anyone tempted to unit-test this directly: `ptr` is a genuine
 /// **wasm32** linear-memory offset truncated to `u32` — reading it back via
 /// [`input`] is only sound inside the guest itself (or the host's own
-/// `wasmtime::Memory`, which is what `crates/gsp/src/sniffer_loader.rs`
+/// `wasmtime::Memory`, which is what `crates/wayhouse/src/sniffer_loader.rs`
 /// actually does). On a native (non-wasm32) test target a real pointer does
 /// not fit in `u32`, so round-tripping through this function would corrupt
 /// the address — test [`encode`] instead, and leave the real placement to
@@ -164,9 +164,9 @@ mod tests {
     use super::*;
 
     /// Mirrors the host's `decode_route_hint` in
-    /// `crates/gsp/src/sniffer_loader.rs` — kept independent (not shared code)
+    /// `crates/wayhouse/src/sniffer_loader.rs` — kept independent (not shared code)
     /// since the two sides deliberately only agree on the wire format, not on
-    /// a shared crate the guest would need to depend on `gsp-core` for.
+    /// a shared crate the guest would need to depend on `wayhouse-core` for.
     fn decode(bytes: &[u8]) -> Option<(Option<String>, Option<String>, bool)> {
         fn read_string(bytes: &[u8], pos: &mut usize) -> Option<String> {
             let len = u16::from_le_bytes(bytes.get(*pos..*pos + 2)?.try_into().ok()?) as usize;
@@ -225,7 +225,7 @@ mod tests {
 
     /// `emit_hint` / `input` / `pack` are only sound on wasm32 (see
     /// `emit_hint`'s doc note) — the real end-to-end round trip through
-    /// `wasmtime::Memory` is exercised by `crates/gsp/src/sniffer_loader.rs`'s
+    /// `wasmtime::Memory` is exercised by `crates/wayhouse/src/sniffer_loader.rs`'s
     /// tests against compiled `*.wasm` modules, not natively here.
     #[test]
     fn pack_places_len_in_the_low_32_bits() {
