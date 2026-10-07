@@ -1,6 +1,6 @@
 [package]
 name = "minecraft"
-version.workspace = true
+version = "0.1.0"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -10,4 +10,4 @@ description = "wayhouse sniffer: extracts the virtual host from a Minecraft hand
 crate-type = ["cdylib", "lib"]
 
 [dependencies]
-wayhouse-sniffer-abi = { path = "../wayhouse-sniffer-abi" }
+wayhouse-sniffer-abi = { workspace = true }

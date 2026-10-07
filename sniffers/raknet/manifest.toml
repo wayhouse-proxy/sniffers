@@ -1,0 +1,12 @@
+name = "raknet"
+description = "Recognises the RakNet offline handshake (Minecraft Bedrock and other RakNet games) and tags it key \"raknet\"."
+license = "MIT OR Apache-2.0"
+version = "0.1.0"
+abi = "0.1"
+min_proxy = "0.1.0"
+homepage = "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/raknet"
+
+# Advisory: the proxy's own settings.sniffers values apply (defaults shown).
+[limits]
+max_memory_bytes = 16777216
+call_timeout_ms = 20

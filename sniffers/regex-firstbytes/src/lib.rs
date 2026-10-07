@@ -96,10 +96,9 @@ fn pattern_matches(first: &[u8], seg: &str) -> Option<bool> {
 
     if let Some(hex) = spec.strip_prefix("hex:") {
         hex_is_prefix(hay, hex)
-    } else if let Some(text) = spec.strip_prefix("ascii:") {
-        Some(hay.starts_with(text.as_bytes()))
     } else {
-        None
+        spec.strip_prefix("ascii:")
+            .map(|text| hay.starts_with(text.as_bytes()))
     }
 }
 
@@ -107,7 +106,7 @@ fn pattern_matches(first: &[u8], seg: &str) -> Option<bool> {
 /// without allocating. `None` if `hex` is not valid (odd length / non-hex).
 fn hex_is_prefix(hay: &[u8], hex: &str) -> Option<bool> {
     let hex = hex.as_bytes();
-    if hex.len() % 2 != 0 {
+    if !hex.len().is_multiple_of(2) {
         return None;
     }
     let want = hex.len() / 2;

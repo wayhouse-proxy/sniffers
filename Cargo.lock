@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "a2s"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]
@@ -163,7 +163,7 @@ checksum = "ce5d3ddc6d3fa000eb1536d85e147bfe31aacaba692ed6a876f95cb7c855be78"
 
 [[package]]
 name = "minecraft"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]
@@ -176,7 +176,7 @@ checksum = "c08d65885ee38876c4f86fa503fb49d7b507c2b62552df7c70b2fce627e06381"
 
 [[package]]
 name = "openvpn"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]
@@ -195,7 +195,7 @@ dependencies = [
 
 [[package]]
 name = "quic"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "aes",
  "aes-gcm",
@@ -206,14 +206,14 @@ dependencies = [
 
 [[package]]
 name = "raknet"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]
 
 [[package]]
 name = "regex-firstbytes"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]
@@ -237,7 +237,7 @@ checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 
 [[package]]
 name = "teamspeak3"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]
@@ -267,10 +267,11 @@ checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 [[package]]
 name = "wayhouse-sniffer-abi"
 version = "0.0.1"
+source = "git+https://github.com/wayhouse-proxy/wayhouse?rev=8166edb75c58942f3834b055ee6ffa4fcd745745#8166edb75c58942f3834b055ee6ffa4fcd745745"
 
 [[package]]
 name = "wireguard"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]

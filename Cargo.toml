@@ -1,16 +1,21 @@
 [workspace]
 resolver = "2"
-# Standalone workspace, deliberately outside the main one (same reason as
-# crates/wayhouse-config/fuzz): these crates build for wasm32-unknown-unknown, are
-# never a dependency of wayhouse / wayhouse-core, and `make check` on the main workspace
-# must not need the wasm target installed. Build them with `make sniffers`.
-members = ["wayhouse-sniffer-abi", "a2s", "minecraft", "quic", "regex-firstbytes", "wireguard", "openvpn", "raknet", "teamspeak3"]
+# One crate per sniffer under sniffers/<name>/, each with a manifest.toml next to it.
+# The crate name, the directory name and the manifest `name` must agree
+# (scripts/stage.py checks it). Every sniffer builds for wasm32-unknown-unknown.
+members = ["sniffers/*"]
 
 [workspace.package]
-version = "0.0.1"
 edition = "2021"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/wayhouse-proxy/wayhouse"
+repository = "https://github.com/wayhouse-proxy/sniffers"
+
+[workspace.dependencies]
+# The sniffer ABI lives in the wayhouse repository (cargo finds the crate by name).
+# Pinned to an exact commit; CI also builds the registry generator from this same
+# revision, so this line is the single place to bump when the ABI changes. Bump it to
+# a release tag once the host ABI the sniffers target ships in one.
+wayhouse-sniffer-abi = { git = "https://github.com/wayhouse-proxy/wayhouse", rev = "8166edb75c58942f3834b055ee6ffa4fcd745745" }
 
 [profile.release]
 opt-level = "z"

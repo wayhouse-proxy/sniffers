@@ -1,0 +1,12 @@
+name = "a2s"
+description = "Recognises Source-engine (CS:GO, TF2, Garry's Mod, Rust, ...) A2S query packets and tags them key \"a2s\"."
+license = "MIT OR Apache-2.0"
+version = "0.1.0"
+abi = "0.1"
+min_proxy = "0.1.0"
+homepage = "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/a2s"
+
+# Advisory: the proxy's own settings.sniffers values apply (defaults shown).
+[limits]
+max_memory_bytes = 16777216
+call_timeout_ms = 20

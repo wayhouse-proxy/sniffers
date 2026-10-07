@@ -1,6 +1,6 @@
 [package]
 name = "a2s"
-version.workspace = true
+version = "0.1.0"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -10,4 +10,4 @@ description = "wayhouse sniffer: recognises Source-engine A2S query packets."
 crate-type = ["cdylib", "lib"]
 
 [dependencies]
-wayhouse-sniffer-abi = { path = "../wayhouse-sniffer-abi" }
+wayhouse-sniffer-abi = { workspace = true }
