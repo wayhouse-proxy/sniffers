@@ -20,7 +20,7 @@ traffic. The proxy has no game-protocol code of its own; it lives here. (Sniffer
 | [`openvpn`](sniffers/openvpn) | OpenVPN client hard reset (a weak signal: list it after stronger sniffers) | key `openvpn` |
 | [`raknet`](sniffers/raknet) | RakNet offline handshake (Minecraft Bedrock and other RakNet games) | key `raknet` |
 | [`teamspeak3`](sniffers/teamspeak3) | TeamSpeak 3 `TS3INIT1` client init | key `teamspeak3` |
-| [`regex-firstbytes`](sniffers/regex-firstbytes) | Your own literal hex/ASCII patterns, set in `settings.sniffers.modules[].config` | key from config |
+| [`regex_firstbytes`](sniffers/regex_firstbytes) | Your own literal hex/ASCII patterns, set in `settings.sniffers.modules[].config` | key from config |
 
 **Handshake-only sniffers.** `quic`, `wireguard`, `openvpn`, `raknet` and `teamspeak3` recognise only a
 flow's first datagram, so a session evicted by `idle_timeout_sec` cannot be routed again by them. See

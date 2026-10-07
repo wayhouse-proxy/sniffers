@@ -212,7 +212,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "regex-firstbytes"
+name = "regex_firstbytes"
 version = "0.1.0"
 dependencies = [
  "wayhouse-sniffer-abi",
