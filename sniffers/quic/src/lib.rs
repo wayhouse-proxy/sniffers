@@ -4,12 +4,15 @@
 //! a *long header*: byte 0 has the header-form and fixed bits set
 //! (`0b11xx_xxxx`), the packet type sits in bits 4-5, then a 4-byte version
 //! and a length-prefixed destination connection ID (8 to 20 bytes in a client
-//! Initial, RFC 9000 §7.2 and §17.2). Only the version-independent
-//! prefix is parsed; the payload is encrypted and never inspected, so there is
-//! no hostname to extract.
+//! Initial, RFC 9000 §7.2 and §17.2). The header is recognised from that
+//! version-independent prefix. The payload is protected with keys derived from
+//! the packet's own destination connection ID (RFC 9001 §5.2), so `initial`
+//! decrypts it and, when the first Initial carries the TLS ClientHello's SNI,
+//! returns it as the hint's `host`.
 //!
-//! A recognised Initial carries `key: Some("quic")`, for a `sniffer` route
-//! matched with an empty `host:` list.
+//! A recognised Initial carries `key: Some("quic")`, and `host` when the SNI was
+//! readable, for a `sniffer` route matched with an empty `host:` list or with
+//! `host:` patterns.
 //!
 //! Recognised versions: v1 (RFC 9000), v2 (RFC 9369) and the IETF drafts
 //! `0xff000000..=0xff000022`. Their Initial type bits differ (v1 `0b00`, v2
