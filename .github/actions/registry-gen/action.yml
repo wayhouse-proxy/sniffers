@@ -1,0 +1,32 @@
+name: registry-gen
+description: >
+  Build wayhouse-registry-gen from the wayhouse revision pinned in Cargo.toml (the same
+  revision the sniffers' ABI crate comes from) and put it on PATH. Built from a checkout
+  with `--path`: `cargo install --git` refuses the wayhouse repository because it holds a
+  nested workspace.
+runs:
+  using: composite
+  steps:
+    - id: rev
+      shell: bash
+      run: |
+        rev=$(sed -n 's/^wayhouse-sniffer-abi = .*rev = "\([0-9a-f]\{40\}\)".*/\1/p' Cargo.toml)
+        [ -n "$rev" ] || { echo "no 40-hex rev found for wayhouse-sniffer-abi in Cargo.toml" >&2; exit 1; }
+        echo "rev=$rev" >> "$GITHUB_OUTPUT"
+    - id: cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      with:
+        path: ~/registry-gen
+        key: registry-gen-${{ runner.os }}-${{ steps.rev.outputs.rev }}
+    - if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        REV: ${{ steps.rev.outputs.rev }}
+      run: |
+        set -euo pipefail
+        src=$(mktemp -d)
+        git clone --quiet --filter=blob:none https://github.com/wayhouse-proxy/wayhouse "$src"
+        git -C "$src" checkout --quiet "$REV"
+        (cd "$src" && cargo install --path crates/wayhouse-registry --bin wayhouse-registry-gen --locked --root ~/registry-gen)
+    - shell: bash
+      run: echo "$HOME/registry-gen/bin" >> "$GITHUB_PATH"

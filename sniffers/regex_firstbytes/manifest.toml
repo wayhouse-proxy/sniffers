@@ -1,0 +1,13 @@
+name = "regex_firstbytes"
+description = "Bounded first-bytes matcher configured at runtime with literal hex or ASCII patterns."
+license = "MIT OR Apache-2.0"
+version = "0.1.0"
+abi = "0.1"
+min_proxy = "0.1.0"
+homepage = "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/regex_firstbytes"
+config = "[key:NAME|] pattern { | pattern }, where pattern is [@OFFSET ](hex:HEX | ascii:TEXT). A datagram is recognised when any pattern's bytes are a prefix of first[offset..]; the hint key is NAME (default firstbytes). Empty config matches nothing. Example: key:a2s|@0 hex:ffffffff"
+
+# Advisory: the proxy's own settings.sniffers values apply (defaults shown).
+[limits]
+max_memory_bytes = 16777216
+call_timeout_ms = 20
