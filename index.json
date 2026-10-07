@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "kind": "sniffer",
+  "name": "wayhouse official sniffers",
+  "sniffers": [
+    {
+      "name": "a2s",
+      "description": "Recognises Source-engine (CS:GO, TF2, Garry's Mod, Rust, ...) A2S query packets and tags them key \"a2s\".",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/a2s",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/a2s-v0.1.0/a2s.wasm",
+          "sha256": "c0ee11d92952e0bf641d8660d2be13a3636a3e18d4cb14f9da9f148a2db21afb",
+          "size": 17426,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "minecraft",
+      "description": "Extracts the server address from a Minecraft (>= 1.7) handshake for virtual-host routing.",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/minecraft",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/minecraft-v0.1.0/minecraft.wasm",
+          "sha256": "bd7916420223fcde1f6dd979ea3a6d90077cab348c6a33c4b8da1fe3036b46ca",
+          "size": 22231,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "openvpn",
+      "description": "Recognises an OpenVPN client hard reset over UDP or TCP and tags it key \"openvpn\" (a weak signal: list it after stronger sniffers).",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/openvpn",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/openvpn-v0.1.0/openvpn.wasm",
+          "sha256": "fc167cdd92959ab8637da514876ca0bbb1f121a2df0d5c120a19df163c9d2d37",
+          "size": 17548,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "quic",
+      "description": "Recognises a QUIC Initial (v1, v2, drafts 29-34) and returns the TLS SNI as the host when the first Initial carries it.",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/quic",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/quic-v0.1.0/quic.wasm",
+          "sha256": "1e09d343c29c1145612016220ea7ec84f62eafc658ceeb037cd10a7f9ce19729",
+          "size": 55237,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "raknet",
+      "description": "Recognises the RakNet offline handshake (Minecraft Bedrock and other RakNet games) and tags it key \"raknet\".",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/raknet",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/raknet-v0.1.0/raknet.wasm",
+          "sha256": "ad70511d0fd113b58a88862a3e2e2d3b78de4fc365b5843f23f56a45137a8c5b",
+          "size": 17553,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "regex_firstbytes",
+      "description": "Bounded first-bytes matcher configured at runtime with literal hex or ASCII patterns.",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/regex_firstbytes",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/regex_firstbytes-v0.1.0/regex_firstbytes.wasm",
+          "sha256": "184f65d13e301125d2f269db192586080f1183774fca9cfcf9e1172eab8a2a9c",
+          "size": 23860,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          },
+          "config": "[key:NAME|] pattern { | pattern }, where pattern is [@OFFSET ](hex:HEX | ascii:TEXT). A datagram is recognised when any pattern's bytes are a prefix of first[offset..]; the hint key is NAME (default firstbytes). Empty config matches nothing. Example: key:a2s|@0 hex:ffffffff"
+        }
+      ]
+    },
+    {
+      "name": "teamspeak3",
+      "description": "Recognises the TeamSpeak 3 voice server's TS3INIT1 client init packet and tags it key \"teamspeak3\".",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/teamspeak3",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/teamspeak3-v0.1.0/teamspeak3.wasm",
+          "sha256": "7b8f50cb3b9e46b6b13d98a526723a21c597164c92be5c57d1d73b4af808ceba",
+          "size": 17411,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "wireguard",
+      "description": "Recognises a WireGuard handshake initiation (148 bytes, message type 1) and tags it key \"wireguard\".",
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/wireguard",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/wireguard-v0.1.0/wireguard.wasm",
+          "sha256": "889d33972308b54b2358f67595b25f1242cf275fd766e81a6ffd5e16512e9460",
+          "size": 17308,
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        }
+      ]
+    }
+  ]
+}
