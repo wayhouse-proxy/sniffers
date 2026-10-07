@@ -74,7 +74,7 @@ whose `<name>-v<version>` release does not exist yet it builds the module, signs
 `MINISIGN_SECRET_KEY` / `MINISIGN_PASSWORD` secrets are set, creates the release, and commits the
 refreshed `index.json` to `main`. Published versions are immutable: existing releases are never
 touched, and the index generator refuses a changed sha256 for a version it already lists. To ship a
-change, bump `version` in both the sniffer's `Cargo.toml` and `manifest.toml`.
+change, bump `version` in both the sniffer's `Cargo.toml` and `manifest.toml`. If a run dies after a release is created but before its `.minisig` is attached, delete that release and its tag and run again (a rerun treats an existing release as published).
 
 ## License
 

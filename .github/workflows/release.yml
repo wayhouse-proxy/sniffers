@@ -60,10 +60,15 @@ jobs:
       - name: Build and stage
         run: |
           set -euo pipefail
-          cargo build --release --target wasm32-unknown-unknown --workspace
+          cargo build --locked --release --target wasm32-unknown-unknown --workspace
           python3 scripts/stage.py --out dist-new ${{ steps.pick.outputs.names }}
-      - name: Install minisign
-        run: sudo apt-get install -y minisign
+      - name: Install minisign (only when a signing key is configured)
+        env:
+          MINISIGN_SECRET_KEY: ${{ secrets.MINISIGN_SECRET_KEY }}
+        run: |
+          if [ -n "$MINISIGN_SECRET_KEY" ]; then
+            sudo apt-get update && sudo apt-get install -y minisign
+          fi
       - name: Create releases
         env:
           GH_TOKEN: ${{ github.token }}
