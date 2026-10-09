@@ -38,6 +38,8 @@ same format (see `docs/sniffers.md` in the wayhouse repository) and users can ad
 admin UI. Registries other than the official one are installed from **at the user's own risk**, and
 the UI says so on every install.
 
-## Code of conduct
+## Code of conduct and security
 
 Be kind and constructive. The [Code of Conduct](CODE_OF_CONDUCT.md) applies to issues, pull requests and every other project space.
+
+Report vulnerabilities privately as described in [`SECURITY.md`](SECURITY.md). Agents and automation: see [`AGENTS.md`](AGENTS.md).
