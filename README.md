@@ -76,6 +76,10 @@ refreshed `index.json` to `main`. Published versions are immutable: existing rel
 touched, and the index generator refuses a changed sha256 for a version it already lists. To ship a
 change, bump `version` in both the sniffer's `Cargo.toml` and `manifest.toml`. If a run dies after a release is created but before its `.minisig` is attached, delete that release and its tag and run again (a rerun treats an existing release as published).
 
+## Contributing
+
+Adding a sniffer: [CONTRIBUTING.md](CONTRIBUTING.md). AI agents: [AGENTS.md](AGENTS.md). Security reports: [SECURITY.md](SECURITY.md).
+
 ## Code of conduct
 
 Participation is covered by the [Code of Conduct](CODE_OF_CONDUCT.md). Report problems privately through a GitHub security advisory on this repository.
