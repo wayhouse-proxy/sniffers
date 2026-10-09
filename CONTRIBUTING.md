@@ -37,3 +37,7 @@ You do not need to be merged here to share a sniffer: anyone can publish an `ind
 same format (see `docs/sniffers.md` in the wayhouse repository) and users can add it by URL in the
 admin UI. Registries other than the official one are installed from **at the user's own risk**, and
 the UI says so on every install.
+
+## Code of conduct
+
+Be kind and constructive. The [Code of Conduct](CODE_OF_CONDUCT.md) applies to issues, pull requests and every other project space.
