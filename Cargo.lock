@@ -195,7 +195,7 @@ dependencies = [
 
 [[package]]
 name = "quic"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aes",
  "aes-gcm",
@@ -213,7 +213,7 @@ dependencies = [
 
 [[package]]
 name = "regex_firstbytes"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "wayhouse-sniffer-abi",
 ]
