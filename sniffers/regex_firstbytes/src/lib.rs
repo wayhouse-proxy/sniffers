@@ -19,7 +19,8 @@
 //! ```
 //! - Whitespace around each `|`-separated segment is trimmed, except that
 //!   spaces at the end of an `ascii:` pattern are part of the payload:
-//!   `ascii:GET ` matches `GET /` but not `GETX`.
+//!   `ascii:GET ` matches `GET /` but not `GETX`. Trailing `\r`, `\n` and
+//!   `\t` are always trimmed, so a pattern pasted with a newline still works.
 //! - `key:` (optional, must be the first segment) sets the recognised hint's
 //!   `key`; default `"firstbytes"`.
 //! - `@OFFSET ` (decimal, ≤ [`MAX_OFFSET`]) shifts where the literal must
@@ -78,7 +79,8 @@ pub fn recognise<'a>(first: &[u8], config: &'a [u8]) -> Option<wayhouse_sniffer_
 }
 
 /// Trim the whitespace around a segment, but keep the trailing spaces of an
-/// `ascii:` pattern: they are payload (`ascii:GET `), not separator.
+/// `ascii:` pattern: they are payload (`ascii:GET `), not separator. A pasted
+/// trailing `\r`, `\n` or `\t` is still trimmed.
 fn trim_segment(seg: &str) -> &str {
     let seg = seg.trim_start();
     let payload = seg.strip_prefix('@').map_or(seg, |rest| {
@@ -86,7 +88,7 @@ fn trim_segment(seg: &str) -> &str {
             .map_or("", |(_, spec)| spec.trim_start())
     });
     if payload.starts_with("ascii:") {
-        seg
+        seg.trim_end_matches(['\r', '\n', '\t'])
     } else {
         seg.trim_end()
     }
@@ -174,6 +176,21 @@ mod tests {
         // Separator whitespace is still trimmed for hex and around key:.
         assert!(recognise(b"\xff\xff", b"key:a2s | hex:ffff ").is_some());
         assert!(recognise(b"POST /", b"ascii:GET | ascii:POST ").is_some());
+    }
+
+    #[test]
+    fn trailing_newline_cr_or_tab_in_an_ascii_pattern_is_not_payload() {
+        for cfg in [
+            &b"ascii:GET\n"[..],
+            b"ascii:GET\r\n",
+            b"ascii:GET\t",
+            b"@0 ascii:GET\n",
+        ] {
+            assert!(recognise(b"GETX", cfg).is_some(), "{cfg:?}");
+        }
+        // Spaces stay payload, even in front of a pasted newline.
+        assert!(recognise(b"GET /", b"ascii:GET \n").is_some());
+        assert!(recognise(b"GETX", b"ascii:GET \n").is_none());
     }
 
     #[test]
