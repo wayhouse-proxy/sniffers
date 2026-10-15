@@ -1,7 +1,7 @@
 name = "quic"
 description = "Recognises a QUIC Initial (v1, v2, drafts 29-34) and returns the TLS SNI as the host when the first Initial carries it."
 license = "MIT OR Apache-2.0"
-version = "0.1.0"
+version = "0.1.1"
 abi = "0.1"
 min_proxy = "0.1.0"
 homepage = "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/quic"

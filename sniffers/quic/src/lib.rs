@@ -15,7 +15,7 @@
 //! `host:` patterns.
 //!
 //! Recognised versions: v1 (RFC 9000), v2 (RFC 9369) and the IETF drafts
-//! `0xff000000..=0xff000022`. Their Initial type bits differ (v1 `0b00`, v2
+//! `0xff00001d..=0xff000022`. Their Initial type bits differ (v1 `0b00`, v2
 //! `0b01`). Retry, 0-RTT, Handshake and short-header packets are not first
 //! packets from a client, so they are not recognised.
 
@@ -23,7 +23,9 @@ mod initial;
 
 const V1: u32 = 0x0000_0001;
 const V2: u32 = 0x6b33_43cf;
-const DRAFT_FIRST: u32 = 0xff00_0000;
+/// Draft-29 is the first draft with a published Initial salt; older drafts
+/// cannot be decrypted, so they are not recognised.
+const DRAFT_FIRST: u32 = 0xff00_001d;
 const DRAFT_LAST: u32 = 0xff00_0022;
 const MAX_CID_LEN: u8 = 20;
 /// A client must pick a destination connection ID of at least 8 bytes for its
@@ -122,6 +124,15 @@ mod tests {
         assert!(recognise(&pkt(0xd3, V2, &[1; 8], &[])).is_some()); // v2 Initial = 0b01
         assert!(recognise(&pkt(0xc0, 0xff00_001d, &[1; 8], &[])).is_some()); // draft-29
         assert!(recognise(&pkt(0xc0, V1, &[1; 8], &[])).is_some()); // empty SCID is legal
+    }
+
+    #[test]
+    fn drafts_without_an_initial_salt_are_not_recognised() {
+        // Drafts 0-28 predate the first published salt (draft-29 is the first
+        // `initial::salt` knows), so they cannot be decrypted.
+        assert!(recognise(&pkt(0xc0, 0xff00_0000, &[1; 8], &[])).is_none());
+        assert!(recognise(&pkt(0xc0, 0xff00_001c, &[1; 8], &[])).is_none()); // draft-28
+        assert!(recognise(&pkt(0xc0, 0xff00_0022, &[1; 8], &[])).is_some()); // draft-34
     }
 
     #[test]

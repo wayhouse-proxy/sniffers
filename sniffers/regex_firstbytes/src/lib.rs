@@ -17,7 +17,9 @@
 //! config   := [ "key:" NAME "|" ] pattern { "|" pattern }
 //! pattern  := [ "@" OFFSET " " ] ( "hex:" HEXDIGITS | "ascii:" TEXT )
 //! ```
-//! - Whitespace around each `|`-separated segment is trimmed.
+//! - Whitespace around each `|`-separated segment is trimmed, except that
+//!   spaces at the end of an `ascii:` pattern are part of the payload:
+//!   `ascii:GET ` matches `GET /` but not `GETX`.
 //! - `key:` (optional, must be the first segment) sets the recognised hint's
 //!   `key`; default `"firstbytes"`.
 //! - `@OFFSET ` (decimal, ≤ [`MAX_OFFSET`]) shifts where the literal must
@@ -41,7 +43,7 @@ pub const MAX_PATTERNS: usize = 32;
 /// thin ABI wrapper the host calls.
 pub fn recognise<'a>(first: &[u8], config: &'a [u8]) -> Option<wayhouse_sniffer_abi::Hint<'a>> {
     let config = std::str::from_utf8(config).ok()?;
-    let mut segments = config.split('|').map(str::trim);
+    let mut segments = config.split('|').map(trim_segment);
 
     // Optional leading `key:NAME`.
     let mut key = "firstbytes";
@@ -73,6 +75,21 @@ pub fn recognise<'a>(first: &[u8], config: &'a [u8]) -> Option<wayhouse_sniffer_
         key: Some(key),
         ..Default::default()
     })
+}
+
+/// Trim the whitespace around a segment, but keep the trailing spaces of an
+/// `ascii:` pattern: they are payload (`ascii:GET `), not separator.
+fn trim_segment(seg: &str) -> &str {
+    let seg = seg.trim_start();
+    let payload = seg.strip_prefix('@').map_or(seg, |rest| {
+        rest.split_once(' ')
+            .map_or("", |(_, spec)| spec.trim_start())
+    });
+    if payload.starts_with("ascii:") {
+        seg
+    } else {
+        seg.trim_end()
+    }
 }
 
 /// `Some(true)` = the pattern's literal is a prefix of `first[offset..]`,
@@ -145,6 +162,18 @@ mod tests {
         let hint = recognise(b"GET /health HTTP/1.1\r\n", b"ascii:GET ").unwrap();
         assert_eq!(hint.key, Some("firstbytes"));
         assert!(recognise(b"POST /x HTTP/1.1\r\n", b"ascii:GET ").is_none());
+    }
+
+    #[test]
+    fn trailing_space_in_an_ascii_pattern_is_payload() {
+        assert!(recognise(b"GET /", b"ascii:GET ").is_some());
+        assert!(recognise(b"GETX", b"ascii:GET ").is_none());
+        assert!(recognise(b"GET /", b"@0 ascii:GET ").is_some());
+        assert!(recognise(b"GETX", b"@0 ascii:GET ").is_none());
+        assert!(recognise(b"GETX", b"key:http|ascii:GET ").is_none());
+        // Separator whitespace is still trimmed for hex and around key:.
+        assert!(recognise(b"\xff\xff", b"key:a2s | hex:ffff ").is_some());
+        assert!(recognise(b"POST /", b"ascii:GET | ascii:POST ").is_some());
     }
 
     #[test]
