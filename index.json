@@ -10,6 +10,19 @@
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/a2s",
       "versions": [
         {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/a2s-v0.1.1/a2s.wasm",
+          "sha256": "0f319bc9b67932770db2f5a02995653788f355f68e29bd557b016bdab951ea8b",
+          "size": 17426,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/a2s-v0.1.1/a2s.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        },
+        {
           "version": "0.1.0",
           "abi": "0.1",
           "min_proxy": "0.1.0",
@@ -29,6 +42,19 @@
       "license": "MIT OR Apache-2.0",
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/minecraft",
       "versions": [
+        {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/minecraft-v0.1.1/minecraft.wasm",
+          "sha256": "3644fd879d9bbb380338f3a27a18cfa4512914becdff00339ddc823e1611f9cb",
+          "size": 22231,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/minecraft-v0.1.1/minecraft.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        },
         {
           "version": "0.1.0",
           "abi": "0.1",
@@ -50,6 +76,19 @@
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/openvpn",
       "versions": [
         {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/openvpn-v0.1.1/openvpn.wasm",
+          "sha256": "405293f5fe69da106018f4755cdf2f0dbc5f5bafcc9480da3aaf62dfcc2f73cf",
+          "size": 17548,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/openvpn-v0.1.1/openvpn.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        },
+        {
           "version": "0.1.0",
           "abi": "0.1",
           "min_proxy": "0.1.0",
@@ -69,6 +108,19 @@
       "license": "MIT OR Apache-2.0",
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/quic",
       "versions": [
+        {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/quic-v0.1.1/quic.wasm",
+          "sha256": "d032a9e076f471adacc524b611b2989d97e474d21591bcd573d1bcd33d54c38c",
+          "size": 55236,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/quic-v0.1.1/quic.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        },
         {
           "version": "0.1.0",
           "abi": "0.1",
@@ -90,6 +142,19 @@
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/raknet",
       "versions": [
         {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/raknet-v0.1.1/raknet.wasm",
+          "sha256": "c2acee509142be2f5dba780521598005ea9d1afc2cbec102cb4349e822ea3d9f",
+          "size": 17553,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/raknet-v0.1.1/raknet.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        },
+        {
           "version": "0.1.0",
           "abi": "0.1",
           "min_proxy": "0.1.0",
@@ -109,6 +174,20 @@
       "license": "MIT OR Apache-2.0",
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/regex_firstbytes",
       "versions": [
+        {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/regex_firstbytes-v0.1.1/regex_firstbytes.wasm",
+          "sha256": "afcedfc8048e3b6ab63acb45f1d3f4a0b1d4a6f9e2dcd57089c6c2b7febfba77",
+          "size": 24375,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/regex_firstbytes-v0.1.1/regex_firstbytes.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          },
+          "config": "[key:NAME|] pattern { | pattern }, where pattern is [@OFFSET ](hex:HEX | ascii:TEXT). A datagram is recognised when any pattern's bytes are a prefix of first[offset..]; the hint key is NAME (default firstbytes). Empty config matches nothing. Example: key:a2s|@0 hex:ffffffff"
+        },
         {
           "version": "0.1.0",
           "abi": "0.1",
@@ -131,6 +210,19 @@
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/teamspeak3",
       "versions": [
         {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/teamspeak3-v0.1.1/teamspeak3.wasm",
+          "sha256": "13862c6c463bc41200ae41d13352f9830a2ffab4d855bcf191ceb1b594086471",
+          "size": 17411,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/teamspeak3-v0.1.1/teamspeak3.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        },
+        {
           "version": "0.1.0",
           "abi": "0.1",
           "min_proxy": "0.1.0",
@@ -150,6 +242,19 @@
       "license": "MIT OR Apache-2.0",
       "homepage": "https://github.com/wayhouse-proxy/sniffers/tree/main/sniffers/wireguard",
       "versions": [
+        {
+          "version": "0.1.1",
+          "abi": "0.1",
+          "min_proxy": "0.1.0",
+          "url": "https://github.com/wayhouse-proxy/sniffers/releases/download/wireguard-v0.1.1/wireguard.wasm",
+          "sha256": "b53ea39a9b5c7f7b063a902240b872022a18a7274fd8dfea2e28c6db22fdad6b",
+          "size": 17308,
+          "signature_url": "https://github.com/wayhouse-proxy/sniffers/releases/download/wireguard-v0.1.1/wireguard.wasm.minisig",
+          "limits": {
+            "max_memory_bytes": 16777216,
+            "call_timeout_ms": 20
+          }
+        },
         {
           "version": "0.1.0",
           "abi": "0.1",
