@@ -35,6 +35,7 @@ jobs:
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
       - uses: ./.github/actions/registry-gen
       - run: python3 scripts/stage_test.py
+      - run: python3 scripts/claim_test.py
       - run: cargo fmt --all -- --check
       - run: cargo clippy --locked --workspace --all-targets -- -D warnings
       - name: Native unit tests
@@ -59,8 +60,10 @@ jobs:
           sudo apt-get update && sudo apt-get install -y minisign
           d=$(mktemp -d)
           minisign -G -W -p "$d/k.pub" -s "$d/k.key" >/dev/null
-          minisign -S -s "$d/k.key" -m dist/a2s/a2s.wasm -x "$d/a2s.wasm.minisig" >/dev/null
-          minisign -V -p "$d/k.pub" -m dist/a2s/a2s.wasm -x "$d/a2s.wasm.minisig"
+          claim=$(python3 scripts/claim.py sniffers/a2s/manifest.toml dist/a2s/a2s.wasm)
+          minisign -S -s "$d/k.key" -t "$claim" -m dist/a2s/a2s.wasm -x "$d/a2s.wasm.minisig" >/dev/null
+          minisign -V -p "$d/k.pub" -m dist/a2s/a2s.wasm -x "$d/a2s.wasm.minisig" | tee "$d/v.txt"
+          grep -qF "$claim" "$d/v.txt"
       - name: Sizes
         run: |
           {
