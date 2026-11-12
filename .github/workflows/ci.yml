@@ -54,7 +54,7 @@ jobs:
       - name: The committed index.json (when present) still parses
         run: |
           if [ ! -f index.json ]; then echo "no index.json yet"
-          elif grep -q '"schema": 1' index.json; then echo "::notice::index.json is still schema 1; the next Release regenerates it as schema 2"
+          elif grep -qx '  "schema": 1,' index.json; then echo "::notice::index.json is still schema 1; the next Release regenerates it as schema 2"
           else wayhouse-registry-gen verify index.json; fi
       - name: The release signing path works (throwaway key)
         run: |

@@ -11,7 +11,7 @@ Thanks for helping. A sniffer is one directory, `sniffers/<name>/`, with a crate
   with `crate-type = ["cdylib", "lib"]`. The manifest `abi` must be the `major.minor` that crate
   declares; the registry validator rejects a module whose `wayhouse.abi` section disagrees.
 - **Manifest.** `name`, `description`, `license`, `version`, `abi`, `min_proxy`, `[limits]`
-  (`max_memory_bytes`, `call_timeout_ms`), `categories` (1 to 3, from [`categories.toml`](categories.toml))
+  (`max_memory_bytes`, `call_timeout_ms`), `categories` (1 to 3, from [`categories.toml`](categories.toml)),
   and optionally `tags` (up to 8 of `a-z`, `0-9`, `-`, 2 to 24 characters, lowercased for you; reuse an
   existing tag where one fits), `config` (documentation of the per-module
   config string) and `homepage`. Unknown keys are an error. The crate `version` equals the manifest

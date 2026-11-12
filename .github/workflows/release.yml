@@ -109,8 +109,7 @@ jobs:
               # Already published: take the published bytes, never a rebuild.
               echo "::notice::$tag exists, keeping the published module"
               gh release download "$tag" --dir "dist/$name" --pattern "$name.wasm*" --clobber
-              git show "$tag:sniffers/$name/manifest.toml" > "dist/$name/manifest.toml" 2>/dev/null \
-                || cp "sniffers/$name/manifest.toml" "dist/$name/manifest.toml"
+              cp "sniffers/$name/manifest.toml" "dist/$name/manifest.toml"
               continue
             fi
             cp "dist-new/$name/"* "dist/$name/"
