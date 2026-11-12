@@ -11,7 +11,9 @@ Thanks for helping. A sniffer is one directory, `sniffers/<name>/`, with a crate
   with `crate-type = ["cdylib", "lib"]`. The manifest `abi` must be the `major.minor` that crate
   declares; the registry validator rejects a module whose `wayhouse.abi` section disagrees.
 - **Manifest.** `name`, `description`, `license`, `version`, `abi`, `min_proxy`, `[limits]`
-  (`max_memory_bytes`, `call_timeout_ms`), and optionally `config` (documentation of the per-module
+  (`max_memory_bytes`, `call_timeout_ms`), `categories` (1 to 3, from [`categories.toml`](categories.toml)),
+  and optionally `tags` (up to 8 of `a-z`, `0-9`, `-`, 2 to 24 characters, lowercased for you; reuse an
+  existing tag where one fits), `config` (documentation of the per-module
   config string) and `homepage`. Unknown keys are an error. The crate `version` equals the manifest
   `version`; versions are independent SemVer per sniffer.
 - **No imports.** The module is core WebAssembly with no WASI and no host imports, at most 8 MiB.
@@ -31,10 +33,15 @@ Thanks for helping. A sniffer is one directory, `sniffers/<name>/`, with a crate
 
 A maintainer cuts the release (see [Releasing](README.md#releasing)); contributors do not tag.
 
+## What we may decline
+
+We want many sniffers here, but the maintainer may decline one that is not good enough, too niche, or
+unsuitable for another reason. That is never a dead end: publish your own registry (below).
+
 ## External registries
 
 You do not need to be merged here to share a sniffer: anyone can publish an `index.json` in the
-same format (see `docs/sniffers.md` in the wayhouse repository) and users can add it by URL in the
+same format, built with the same `wayhouse-registry-gen` tool (see `docs/sniffers.md` in the wayhouse repository) and users can add it by URL in the
 admin UI. Registries other than the official one are installed from **at the user's own risk**, and
 the UI says so on every install.
 

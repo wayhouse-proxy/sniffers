@@ -47,13 +47,15 @@ jobs:
       - name: Generate an index and parse it with the real validator
         run: |
           set -euo pipefail
-          wayhouse-registry-gen generate --name "ci check" \
+          wayhouse-registry-gen generate --name "ci check" --categories categories.toml \
             --base-url https://github.com/wayhouse-proxy/sniffers/releases/download \
             --out "$RUNNER_TEMP/index.json" dist/*
           wayhouse-registry-gen verify "$RUNNER_TEMP/index.json"
       - name: The committed index.json (when present) still parses
         run: |
-          if [ -f index.json ]; then wayhouse-registry-gen verify index.json; else echo "no index.json yet"; fi
+          if [ ! -f index.json ]; then echo "no index.json yet"
+          elif grep -qx '  "schema": 1,' index.json; then echo "::notice::index.json is still schema 1; the next Release regenerates it as schema 2"
+          else wayhouse-registry-gen verify index.json; fi
       - name: The release signing path works (throwaway key)
         run: |
           set -euo pipefail

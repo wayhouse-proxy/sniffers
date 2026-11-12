@@ -109,8 +109,7 @@ jobs:
               # Already published: take the published bytes, never a rebuild.
               echo "::notice::$tag exists, keeping the published module"
               gh release download "$tag" --dir "dist/$name" --pattern "$name.wasm*" --clobber
-              git show "$tag:sniffers/$name/manifest.toml" > "dist/$name/manifest.toml" 2>/dev/null \
-                || cp "sniffers/$name/manifest.toml" "dist/$name/manifest.toml"
+              cp "sniffers/$name/manifest.toml" "dist/$name/manifest.toml"
               continue
             fi
             cp "dist-new/$name/"* "dist/$name/"
@@ -131,7 +130,7 @@ jobs:
       - name: Refresh index.json
         run: |
           set -euo pipefail
-          wayhouse-registry-gen generate --name "wayhouse official sniffers" \
+          wayhouse-registry-gen generate --name "wayhouse official sniffers" --categories categories.toml \
             --base-url "https://github.com/${{ github.repository }}/releases/download" \
             --out index.json dist/*
           wayhouse-registry-gen verify index.json

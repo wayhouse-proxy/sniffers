@@ -1,0 +1,3 @@
+# The categories a sniffer may use (1 to 3 per manifest). CI rejects any other value.
+# Adding one is a maintainer change: keep the list short so the filters stay useful.
+categories = ["game", "voip", "vpn", "web", "database", "remote-access", "other"]
