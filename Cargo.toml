@@ -15,7 +15,7 @@ repository = "https://github.com/wayhouse-proxy/sniffers"
 # Pinned to an exact commit; CI also builds the registry generator from this same
 # revision, so this line is the single place to bump when the ABI changes. Bump it to
 # a release tag once the host ABI the sniffers target ships in one.
-wayhouse-sniffer-abi = { git = "https://github.com/wayhouse-proxy/wayhouse", rev = "44a0a247797549097f482368ca642107db5763ea" }
+wayhouse-sniffer-abi = { git = "https://github.com/wayhouse-proxy/wayhouse", rev = "952bc6e555c12644aafbf2c2d2f242a2c8931cb1" }
 
 [profile.release]
 opt-level = "z"
