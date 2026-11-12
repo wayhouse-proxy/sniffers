@@ -131,7 +131,7 @@ jobs:
       - name: Refresh index.json
         run: |
           set -euo pipefail
-          wayhouse-registry-gen generate --name "wayhouse official sniffers" \
+          wayhouse-registry-gen generate --name "wayhouse official sniffers" --categories categories.toml \
             --base-url "https://github.com/${{ github.repository }}/releases/download" \
             --out index.json dist/*
           wayhouse-registry-gen verify index.json

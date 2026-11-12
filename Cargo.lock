@@ -266,8 +266,8 @@ checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 
 [[package]]
 name = "wayhouse-sniffer-abi"
-version = "0.0.1"
-source = "git+https://github.com/wayhouse-proxy/wayhouse?rev=8166edb75c58942f3834b055ee6ffa4fcd745745#8166edb75c58942f3834b055ee6ffa4fcd745745"
+version = "0.3.0"
+source = "git+https://github.com/wayhouse-proxy/wayhouse?rev=44a0a247797549097f482368ca642107db5763ea#44a0a247797549097f482368ca642107db5763ea"
 
 [[package]]
 name = "wireguard"
