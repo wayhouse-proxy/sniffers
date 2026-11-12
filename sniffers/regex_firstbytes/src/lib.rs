@@ -21,6 +21,9 @@
 //!   spaces at the end of an `ascii:` pattern are part of the payload:
 //!   `ascii:GET ` matches `GET /` but not `GETX`. Trailing `\r`, `\n` and
 //!   `\t` are always trimmed, so a pattern pasted with a newline still works.
+//!   Since 0.1.1 this also means `ascii:GET | ascii:POST` (spaces around the
+//!   separator) matches `"GET "` (with the space) and `"POST"`, not
+//!   `"GET"`; write `ascii:GET|ascii:POST` if no space is meant.
 //! - `key:` (optional, must be the first segment) sets the recognised hint's
 //!   `key`; default `"firstbytes"`.
 //! - `@OFFSET ` (decimal, ≤ [`MAX_OFFSET`]) shifts where the literal must
