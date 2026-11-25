@@ -36,7 +36,7 @@ the "Handshake-only sniffers" note in the wayhouse configuration guide (`docs/05
   and upload it through the admin API or UI, or drop it into `settings.sniffers.dir`.
 
 Trust model in short: this repository only holds reviewed sniffers; every download is checked against
-the index; signatures are optional for now and an unsigned module is shown as unsigned. The format and
+the index; signatures are optional in the format (a third-party registry may omit them, and an unsigned module is shown as unsigned), but the latest release of every sniffer here is signed with the official key. The format and
 checks are documented in [`docs/sniffers.md`](https://github.com/wayhouse-proxy/wayhouse/blob/main/docs/sniffers.md)
 in the wayhouse repository.
 
